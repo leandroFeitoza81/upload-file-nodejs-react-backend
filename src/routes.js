@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
-const multerConfig = require('./multer/multer');
+// const multerAWS = require('./multer/multer.js');
+const multerConfig = require('./config/multer')
 const Upload = require('./models/upload');
+
 
 
 mongoose.connect(
@@ -15,13 +17,14 @@ mongoose.connect(
 router.get('/', (req, res) => res.send('Hello '));
 
 router.post('/', multer(multerConfig).single('file'), async (req, res) => {
-  const { originalname: name, size, filename: key } = req.file
+  const { originalname: name, size, key, url = '' } = req.file
   const upload = await Upload.create({
     name,
     key,
     size,
-    url: ''
+    url,
   })
+  console.log(upload)
   res.status(200).json(upload)
 })
 
