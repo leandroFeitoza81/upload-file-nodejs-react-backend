@@ -1,11 +1,8 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
-// const multerAWS = require('./multer/multer.js');
 const multerConfig = require('./config/multer')
 const Upload = require('./models/upload');
-
-
 
 mongoose.connect(
   'mongodb://127.0.0.1:27017/test',
@@ -14,10 +11,13 @@ mongoose.connect(
   }
 );
 
-router.get('/', (req, res) => res.send('Hello '));
+router.get('/', async (_req, res) => {
+  const files = await Upload.find()
+  res.status(200).json(files)
+});
 
 router.post('/', multer(multerConfig).single('file'), async (req, res) => {
-  const { originalname: name, size, key, url = '' } = req.file
+  const { originalname: name, size, key, location: url = '' } = req.file
   const upload = await Upload.create({
     name,
     key,
@@ -26,6 +26,12 @@ router.post('/', multer(multerConfig).single('file'), async (req, res) => {
   })
   console.log(upload)
   res.status(200).json(upload)
+});
+
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params
+  const DELETADO = await Upload.findByIdAndRemove(id)
+    res.status(200).json({ DELETADO })
 })
 
 module.exports = router;

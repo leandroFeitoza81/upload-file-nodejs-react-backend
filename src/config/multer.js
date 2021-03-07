@@ -8,10 +8,10 @@ const MAX_SIZE_TWO_MEGABYTES = 2 * 1024 * 1024;
 
 const storageTypes = {
   local: multer.diskStorage({
-    destination: (req, file, callback) => {
+    destination: (_req, _file, callback) => {
       callback(null, path.resolve(__dirname, '..', '..', 'tmp', 'uploads'))
     },
-    filename: (req, file, callback) => {
+    filename: (_req, file, callback) => {
       crypto.randomBytes(8, (err, hash) => {
         if (err) callback (err);
         file.key = `${hash.toString("hex")}-${file.originalname}`;
@@ -24,7 +24,7 @@ const storageTypes = {
     bucket: process.env.BUCKET_NAME,
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
-    key: (req, file, callback) => {
+    key: (_req, file, callback) => {
       crypto.randomBytes(8, (err, hash) => {
         if (err) callback (err);
         fileName = `${hash.toString("hex")}-${file.originalname}`;
