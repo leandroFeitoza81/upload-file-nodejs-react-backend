@@ -3,6 +3,7 @@ const express = require('express')
 const router = require('./routes');
 const morgan = require('morgan')
 const path = require('path');
+const cors = require('cors');
 
 const app = express()
 
@@ -10,6 +11,7 @@ const PORT = 3000
 
 app.use(express.json());
 app.use(morgan('dev'))
+app.use(cors())
 
 app.use('/upload', router)
 
