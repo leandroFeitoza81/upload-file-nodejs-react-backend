@@ -1,4 +1,4 @@
-<h1 align="center" > Upload Image </h1>
+<h1 align="center" > :sparkles: Upload Image :sparkles: </h1>
 
 
 Este projeto é uma API para upload de arquivos para o S3 da AWS. Ele foi desenvolvido para praticar alguns conceitos aprendidos durante o curso de Backend na Trybe e inspirado pela video aula do canal Rocketseat.
@@ -18,6 +18,8 @@ cd upload-file-nodejs-react-backend
 npm install
 node src/index.js
 ```
+<h2> Estrutura de pastas </h2>
+
 ```
 |-- src
     |--config
@@ -33,6 +35,7 @@ node src/index.js
 |--ecosystem.config.yml
 |--README.md
 ```
+
 
 **multer.js** -> Onde está toda a configuração de Storage do multer. Uma local para ser feito o upload de arquivo para a pasta tmp/upload dentro do projeto. A a S3 que salva os arquivos na AWS.
 
