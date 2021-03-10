@@ -3,5 +3,5 @@ apps:
 - name: app
   script: src/index.js
   watch: ./
-  instances : "max",
-  exec_mode : "cluster"
+  instances : max
+  exec_mode : cluster
